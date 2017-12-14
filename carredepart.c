@@ -6,7 +6,7 @@
 /*   By: mpascaud <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/02 18:49:40 by mpascaud          #+#    #+#             */
-/*   Updated: 2017/12/12 19:57:39 by mpascaud         ###   ########.fr       */
+/*   Updated: 2017/12/14 21:35:49 by mpascaud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ char		*constructioncarre(int cote)
 		i++;
 		lines++;
 	}
-	blop[(cote * cote) + cote - 1] = '\0';
+	blop[(cote * cote) + cote + 1] = '\0';
 	return (blop);
 }
 

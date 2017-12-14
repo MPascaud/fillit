@@ -6,7 +6,7 @@
 /*   By: mpascaud <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/12 19:10:27 by mpascaud          #+#    #+#             */
-/*   Updated: 2017/12/13 15:53:09 by mpascaud         ###   ########.fr       */
+/*   Updated: 2017/12/14 21:30:46 by mpascaud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,28 +19,23 @@ char	*dimensionnement(int tetris, t_list *liste)
 //	int		tetris;
 //	t_list	*plaf;
 	t_list	*tkt;
+	int		cote;
 
 	tkt = liste;
-	printf("tetris : %d\n", tetris);
+	cote = 0;
+//	printf("tetris : %d\n", tetris);
 //	agencement(liste, carre);
-	while (tetris)
+	carre = dimensions(tetris);
+	while (carre[cote] != '\n')
+		cote++;
+//	printf("cote = %d\n", cote);
+	while (agencement(liste, carre) == NULL)
 	{
-		liste = tkt;
-		carre = dimensions(tetris);
-		printf("carre : \n%s\n", carre);
-		printf("tetris : %d\n", tetris);
-	//	printf("%s\n", "blop");
-		if (agencement(liste, carre) != NULL)
-		{
-			printf("%s\n", "coucou6");
-			carre = dimensions(tetris);
-			return (agencement(tkt, carre));
-		}
-	//	afficherliste(&liste);
-		printf("%d\n", tetris);
-		tetris++;
+		cote++;
+		carre = constructioncarre(cote);
 	}
-	printf("%s\n", carre);
+//	printf("cote = %d\n", cote);
+//	printf("carre : %s\n", carre);
 	return (carre);
 }
 

@@ -5,8 +5,20 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: mpascaud <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/12/14 12:44:53 by mpascaud          #+#    #+#             */
+/*   Updated: 2017/12/14 18:46:50 by mpascaud         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   agencement.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mpascaud <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/12 10:55:27 by mpascaud          #+#    #+#             */
-/*   Updated: 2017/12/13 19:10:35 by mpascaud         ###   ########.fr       */
+/*   Updated: 2017/12/14 12:39:36 by mpascaud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,15 +73,17 @@ void	backdot(t_list *maillon, char *carre)
 
 char	*agencement(t_list *liste, char *carre)
 {
+//	int		position;
 
 //	printf("%s\n", "coucou");
 	while (liste->previous != NULL)
 	{
-		printf("%d\n", liste->position);
+//		printf("%d\n", liste->position);
 	//	printf("%s\n", "coucou");
 		if (placelibre(liste, carre) == -1)
 		{
-			printf("liste->position = %d\n", liste->position);
+	//		printf("\n-----------------\ncarre quand placelibre == -1 \n%s\n", carre);
+//			printf("liste->position = %d\n------------------\n", liste->position);
 			liste->position = 0;
 			if (liste->previous == NULL)
 				return (NULL);
@@ -78,6 +92,7 @@ char	*agencement(t_list *liste, char *carre)
 			if (liste->previous == NULL)
 				return (NULL);
 			backdot(liste, carre);
+//			printf("carre apres backdot \n%s\n", carre);
 			liste->position++;
 			if (liste->previous == NULL)
 			{
@@ -87,28 +102,29 @@ char	*agencement(t_list *liste, char *carre)
 		}
 		if (placelibre(liste, carre) >= 0)
 		{
+		//	printf("carre quand placelibre >= 0 \n%s\n", carre);
 			liste->position = placelibre(liste, carre);
 			placement(liste, carre);
+//			printf("carre apres placement \n%s\n", carre);
 			if (liste->next == NULL)
 				return (carre);
 			if (liste->previous == NULL)
 				return(NULL);
 			liste = liste->next;
+			liste->position = 0;
+			if (liste->previous == NULL)
+				return (NULL);
 		}
 	}
+//	printf("%s\n", "coucou");
 	return (NULL);
 }
 
 
 
-//placebarre
-//next
-//place carre
-//next
+//un tetri un numero
+//si un tetri pareil, meme numero
 //
 //
-
-
-
 
 

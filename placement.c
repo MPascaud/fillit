@@ -6,7 +6,7 @@
 /*   By: mpascaud <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/05 18:30:48 by mpascaud          #+#    #+#             */
-/*   Updated: 2017/12/12 14:16:45 by mpascaud         ###   ########.fr       */
+/*   Updated: 2017/12/14 12:12:28 by mpascaud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,14 +53,16 @@ void		placement(t_list *maillon, char *carre)
 {
 	int		i;
 	int		cote;
+	char	c;
 
+	c = maillon->lettre;
 	i = 0;
 	cote = 0;
 	while (carre[cote] != '\n')
 		cote++;
 	while (i < 4)
 	{
-		carre[maillon->position + maillon->x[i] + ((maillon->y[i]) * (cote + 1))] = '#';
+		carre[maillon->position + maillon->x[i] + ((maillon->y[i]) * (cote + 1))] = c;
 		i++;
 	}
 }
