@@ -6,7 +6,7 @@
 /*   By: mpascaud <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/30 19:49:34 by mpascaud          #+#    #+#             */
-/*   Updated: 2017/12/12 15:52:04 by mpascaud         ###   ########.fr       */
+/*   Updated: 2017/12/15 18:01:58 by mpascaud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,20 +17,26 @@ static int		validite2(int characters, int lines, int hashtags, char *str)
 {
 	int		i;
 
+//	printf("hashtags = %d\n", hashtags);
+//	printf("lines = %d\n", lines);
 	i = 0;
 	if (str[i] != '#' && str[i] != '.' && str[i] != '\n')//mauvais signes
 		return (0);
 	if (str[i] == '\n')
 	{
-		if (str[i + 1] == '\n' || characters == 0)
+		if (str[i + 1] == '\n')//si 2 \n a la suite
 		{
-			if (str[i + 2] == '\n' || characters % 4 != 0 || characters == 0)//trop de \n, ou pas bon nombre de #
+			if (str[i + 2] == '\n' || lines != hashtags
+					|| characters == 0
+					|| characters % 4 != 0)//3 \n a la suite, ou pas bon nombre de #, ou fichier commence par 2 \n, ou pas bon nombre de (# & .)
+			{
 				return (0);
+			}
 		}
 	}
-	if (characters % 4 == 0 && str[i] != '\n')
+	if (characters % 4 == 0 && str[i] != '\n')//au niveau de la 4e colonne
 	{
-		if (str[i + 1] != '\n')//pas de \0 ?
+		if (str[i + 1] != '\n')//pas de \n en +1
 			return (0);
 	}
 	if (lines % 4 == 0 && (str[i] == '#' || str[i] == '.') && str[i + 1] != '\0' && i != 0)
@@ -40,21 +46,23 @@ static int		validite2(int characters, int lines, int hashtags, char *str)
 			return (0);//\n apres tetri
 		}
 	}
+	/*if (lines % 4 == 0 && hashtags != lines)
+		return (0);//tetriminos vide*/
 	if (hashtags % 4 != 0 && lines % 4 == 0 && characters % 4 == 0)//pas bon nombre de #
 	{
 		return (0);
 	}
-	if (hashtags % 4 <= 3 && hashtags % 4 != 0 && str[i] == '#')
+	if (/*hashtags % 4 <= 3 && hashtags % 4 != 0 && */str[i] == '#')
 		if (str[i + 1] != '#' && str[i + 5] != '#' && (i > 0 && str[i - 1] != '#') && (i >= 5 && str[i - 5] != '#'))
 		{
-			return (0);
+			return (0);//# isole
 		}
-	if (characters > 545)
+	if (characters > 545)//trop de tetriminos
 		return (0);
 	if (str[i + 1] == '\0')
-		if (characters % 4 != 0 || (str[i - 1] != '#' && str[i - 1] != '.') || str[i] != '\n')
+		if (characters % 4 != 0 || (str[i - 1] != '#' && str[i - 1] != '.') || str[i] != '\n' || hashtags != lines)
 		{
-			return (0);
+			return (0);//mauvaise fin ou fichier d'un tetri vide
 		}
 	return (1);
 }
@@ -86,5 +94,9 @@ int		validite(char* enter)
 			return (0);
 		i++;
 	}
+	if (lines == 0)
+		return (0);
+//	printf("hashtags = %d\n", hashtags);
+//	printf("lines = %d\n", lines);
 	return (1);
 }
