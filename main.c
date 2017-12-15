@@ -6,7 +6,7 @@
 /*   By: mpascaud <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/15 17:05:04 by mpascaud          #+#    #+#             */
-/*   Updated: 2017/12/15 17:48:59 by mpascaud         ###   ########.fr       */
+/*   Updated: 2017/12/15 19:17:07 by mpascaud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ int		main(int argc, char **argv)
 	char	tmp[1024];
 	int		tetris;
 	t_list	*liste;
-	char	*carre;
 
 	if (argc != 2)
 	{
@@ -37,9 +36,10 @@ int		main(int argc, char **argv)
 		ft_putstr("error\n");
 		return (0);
 	}
-	liste = (construction(tmp));
+	printf("validite : %d\n", validite(tmp));
+/*	liste = (construction(tmp));
 	liste = liste->next;
 	tetris = nombretetris(tmp);
-	ft_putstr(dimensionnement(tetris, liste));
+	ft_putstr(dimensionnement(tetris, liste));*/
 	return (0);
 }

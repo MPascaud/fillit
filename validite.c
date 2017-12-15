@@ -6,12 +6,48 @@
 /*   By: mpascaud <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/30 19:49:34 by mpascaud          #+#    #+#             */
-/*   Updated: 2017/12/15 18:01:58 by mpascaud         ###   ########.fr       */
+/*   Updated: 2017/12/15 20:39:10 by mpascaud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
 #include "fillit.h"
+
+
+int		demitetri(char *str)
+{
+	int		i;
+	int		tetriok;
+
+	i = 0;
+	tetriok = 0;
+	while (str[i])
+	{
+		if (str[i] == '#')
+		{
+			if (str[i + 1] == '#')
+				if (str[i + 5] == '#' || (i > 0 && str[i - 1] == '#') || (i >= 5 && str[i - 5] == '#'))
+					tetriok = 1;
+			if (str[i + 5] == '#')
+				if (str[i + 1] == '#' || (i > 0 && str[i - 1] == '#') || (i >= 5 && str[i - 5] == '#'))
+					tetriok = 1;
+			if (i > 0 && str[i - 1] == '#')
+				if (str[i + 1] == '#' || str[i + 5] == '#' || (i >= 5 && str[i - 5] == '#'))
+					tetriok = 1;
+			if (i >= 5 && str[i - 5] == '#')
+				if (str[i + 1] == '#' || str[i + 5] == '#' || (i > 0 && str[i - 1] == '#'))
+					tetriok = 1;
+		}
+		if (str[i + 1] == '\0' || (str[i + 1] == '\n' && str[i + 2] == '\n'))
+		{
+			if (tetriok == 0)
+				return (0);
+			tetriok = 0;
+		}
+		i++;
+	}
+	return (1);
+}
 
 static int		validite2(int characters, int lines, int hashtags, char *str)
 {
@@ -53,10 +89,12 @@ static int		validite2(int characters, int lines, int hashtags, char *str)
 		return (0);
 	}
 	if (/*hashtags % 4 <= 3 && hashtags % 4 != 0 && */str[i] == '#')
+	{
 		if (str[i + 1] != '#' && str[i + 5] != '#' && (i > 0 && str[i - 1] != '#') && (i >= 5 && str[i - 5] != '#'))
 		{
 			return (0);//# isole
 		}
+	}
 	if (characters > 545)//trop de tetriminos
 		return (0);
 	if (str[i + 1] == '\0')
@@ -94,9 +132,11 @@ int		validite(char* enter)
 			return (0);
 		i++;
 	}
-	if (lines == 0)
-		return (0);
+	if (lines == 0 || demitetri(enter) == 0)
+		return (0);// verifier
 //	printf("hashtags = %d\n", hashtags);
 //	printf("lines = %d\n", lines);
 	return (1);
 }
+//
+//
